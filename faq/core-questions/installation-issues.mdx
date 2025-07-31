@@ -3,4 +3,164 @@ title: "Common Installation Issues"
 description: "Guides users through resolving the most typical installation hurdles, covering platform prerequisites, typical errors, and how to verify a successful install."
 ---
 
-*This page will automatically be generated from the codebase*
+# Common Installation Issues
+
+This guide helps you navigate and resolve the most frequent installation challenges encountered when setting up RunRL. It focuses exclusively on installation-related hurdles, including platform prerequisites, typical errors during installation, and methods to verify a successful setup.
+
+---
+
+## 1. Installation Prerequisites
+
+Before beginning installation, ensure your environment meets the following prerequisites:
+
+- **Supported Operating Systems:** Windows 10 or later, macOS 11+, and commonly used Linux distributions.
+- **Python Environment:** Python 3.8 or higher installed and accessible via your command line.
+- **Network Access:** Reliable connection for downloading dependencies and accessing repositories.
+- **Permissions:** Necessary rights to install software and write files on your system.
+
+<Tip>
+Always verify your Python version and `pip` installation using `python --version` and `pip --version` prior to starting.
+</Tip>
+
+For comprehensive prerequisite details, see the [System Requirements & Prerequisites](/getting-started/setup-introduction/prerequisites) guide.
+
+---
+
+## 2. Typical Installation Errors and How to Fix Them
+
+Installation obstacles can arise due to system incompatibilities, missing dependencies, or permission issues. Below are the most common error scenarios and clear corrective actions:
+
+### 2.1 Dependency Installation Failures
+
+**Problem:** Errors occur when installing required Python packages (e.g., network timeouts, incompatible versions).
+
+**Solution:**
+- Verify network connectivity.
+- Upgrade `pip` with `pip install --upgrade pip`.
+- Install dependencies in a clean virtual environment:
+
+```bash
+python -m venv runrl-env
+source runrl-env/bin/activate  # Linux/macOS
+runrl-env\Scripts\activate.bat  # Windows
+pip install -r requirements.txt
+```
+- For persistent failures, consult your system’s package manager or firewall settings.
+
+### 2.2 Permission Denied Errors
+
+**Problem:** Installation commands fail due to insufficient privileges.
+
+**Solution:**
+- On Linux/macOS, use `sudo` cautiously, for example:
+
+```bash
+sudo pip install runrl
+```
+
+- On Windows, run the terminal as an Administrator.
+- Alternatively, use a user-local install:
+
+```bash
+pip install --user runrl
+```
+
+### 2.3 Unsupported Platform or Python Version
+
+**Problem:** Installation halts citing unsupported OS or outdated Python.
+
+**Solution:**
+- Confirm your OS is supported and upgrade if needed.
+- Install Python 3.8 or newer from [python.org](https://www.python.org/downloads/).
+- Adjust your PATH environment variable to ensure the correct Python version is used.
+
+### 2.4 Source Installation Issues
+
+**Problem:** Errors cloning or building from source.
+
+**Solution:**
+- Confirm Git is installed and accessible: `git --version`
+- Clone the official repository:
+
+```bash
+git clone https://github.com/runrl/docs.git
+```
+
+- Follow build instructions strictly, and ensure all dependencies for source builds are met (e.g., build tools).
+
+<Warning>
+Avoid using legacy or unofficial forks of RunRL to prevent versioning conflicts.
+</Warning>
+
+---
+
+## 3. Verifying a Successful Installation
+
+After completing installation, it’s critical to confirm that RunRL is correctly set up and operational.
+
+Follow these verification steps:
+
+<Steps>
+<Step title="Confirm Python Package Availability">
+Run:
+```bash
+python -c "import runrl; print(runrl.__version__)"
+```
+Expected: Displays the installed RunRL version.
+</Step>
+<Step title="Run a Simple Command or Script">
+Execute a basic RunRL operation as described in the [First Successful Run](/getting-started/first-steps/first-usage) guide to validate functionality.
+</Step>
+<Step title="Check Configuration Files">
+Ensure key configuration files such as `source.config.ts` or `runrl.config` exist and contain your intended settings.
+</Step>
+<Step title="Review Logs for Errors">
+Monitor any command-line output or log files for warnings or errors during initialization.
+</Step>
+</Steps>
+
+### 3.1 Using the Quick Validation Checklist
+
+For a fast, comprehensive verification, use the [Quick Validation Checklist](/getting-started/first-steps/validation-checklist) which guides you through environment validation, accessibility checks, and network permissions.
+
+<Tip>
+Successful verification prevents many issues during your first usage and saves troubleshooting time later.
+</Tip>
+
+---
+
+## 4. Troubleshooting Tips
+
+If problems persist after following the above steps:
+
+- Ensure no conflicting Python installations exist.
+- Clear any previously cached dependencies by running `pip cache purge`.
+- Disable VPNs or firewalls that may block repository access.
+- Consult the [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting) page for guided diagnostics.
+- Check system logs and run installation commands with verbose flags for detailed output.
+
+<Check>
+Maintain an organized environment using virtual environments to isolate RunRL and its dependencies.
+</Check>
+
+---
+
+## 5. Summary
+
+This page equipped you with practical solutions to the most common issues encountered during RunRL installation, ranging from prerequisite verification to error resolution and final validation.
+
+Use this resource as your first stop when installation challenges arise to ensure a smooth and confident launch of your RunRL workflow.
+
+---
+
+## Related Documentation
+
+- [Installation Guide](/getting-started/setup-introduction/installing-runrl): Detailed step-by-step installation instructions.
+- [System Requirements & Prerequisites](/getting-started/setup-introduction/prerequisites): Environment setup essentials.
+- [First Successful Run](/getting-started/first-steps/first-usage): Verify installation through a sample operation.
+- [Quick Validation Checklist](/getting-started/first-steps/validation-checklist): Rapid confirmation of setup.
+- [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting): Broader troubleshooting methods.
+
+For assistance beyond these steps, contact support or engage with the RunRL user community via the official channels.
+
+---
