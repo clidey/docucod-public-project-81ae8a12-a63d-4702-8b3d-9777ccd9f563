@@ -1,0 +1,220 @@
+---
+title: "Initial Configuration"
+description: "Learn how to set up and adjust key RunRL configuration settings. Understand basic authentication, important config files, and how to tailor the experience to your needs."
+---
+
+# Initial Configuration
+
+Learn how to set up and adjust key RunRL configuration settings to tailor your documentation experience. This guide walks you through basic authentication concepts, important configuration files, and practical customization tips to help you move from installation to meaningful usage quickly.
+
+---
+
+## 1. Overview of Configuration
+
+RunRL Docs leverages a modern schema-driven configuration approach based on `source.config.ts`. This file defines how your documentation source is handled including frontmatter validation, metadata schemas, and MDX options.
+
+Your primary configuration tasks will involve:
+
+- Understanding fundamental config files
+- Adjusting schema settings to enforce metadata consistency
+- Optionally customizing MDX rendering behavior
+
+
+## 2. Key Configuration Files
+
+### a. `source.config.ts`
+
+This TypeScript file is the nucleus of RunRL Docs configuration. It uses the `fumadocs-mdx` package for defining docs and meta schemas.
+
+Main responsibilities:
+
+- Set the frontmatter schema for documentation pages
+- Define metadata schema to ensure consistency
+- Provide options for MDX processing such as remark and rehype plugins
+
+Example snippet from `source.config.ts`:
+
+```typescript
+import {
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+  metaSchema,
+} from 'fumadocs-mdx/config';
+
+export const docs = defineDocs({
+  docs: {
+    schema: frontmatterSchema,
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
+export default defineConfig({
+  mdxOptions: {
+    // Customize MDX options here, e.g. plugins
+  },
+});
+```
+
+<Tip>
+Modify the `frontmatterSchema` to tailor required frontmatter fields for your project. This ensures all your docs pages include consistent metadata like `title`, `description`, `tags`, or custom fields.
+</Tip>
+
+### b. `lib/source.ts`
+
+This file connects your documented content source with the UI and systems.
+
+```typescript
+import { docs } from '@/.source';
+import { loader } from 'fumadocs-core/source';
+
+export const source = loader({
+  baseUrl: '/docs',
+  source: docs.toFumadocsSource(),
+});
+```
+
+- `baseUrl` sets the root path for your documentation in the app
+- `loader()` prepares the docs to be consumable by the UI components
+
+<Note>
+Changes here typically relate to routing or integrating additional content sources.
+</Note>
+
+### c. `next.config.mjs`
+
+This file integrates MDX support into the Next.js app. You rarely need to modify it beyond initial setup.
+
+```javascript
+import { createMDX } from 'fumadocs-mdx/next';
+const withMDX = createMDX();
+
+export default withMDX({
+  reactStrictMode: true,
+});
+```
+
+## 3. Basic Authentication Setup
+
+Currently, RunRL Docs focuses on documentation presentation rather than authentication layers. However, if you need to add authentication mechanisms, typical approaches include:
+
+- Implementing auth in your Next.js middleware or API routes
+- Protecting documentation pages via user sessions
+- Integrating third-party OAuth providers
+
+Refer to the [Authentication & Authorization Guide](/api-reference/auth-and-errors/authentication) for detailed patterns and examples.
+
+<Tip>
+For static or publicly accessible documentation, authentication setup may not be necessary.
+</Tip>
+
+## 4. Customizing Your Documentation Experience
+
+### a. Adjusting Frontmatter Schema
+
+To enforce mandatory fields or add custom metadata:
+
+1. Open `source.config.ts`
+2. Import or define a custom schema using `zod` or similar validation tools
+3. Assign your custom schema to `defineDocs({ docs: { schema: customFrontmatterSchema } })`
+
+### b. MDX Options Customization
+
+Customize the MDX compilation with plugins:
+
+- Add remark plugins (e.g., for syntax highlighting, tables)
+- Add rehype plugins (e.g., for accessibility, image optimization)
+
+Example:
+
+```typescript
+export default defineConfig({
+  mdxOptions: {
+    remarkPlugins: [require('remark-gfm')],
+    rehypePlugins: [],
+  },
+});
+```
+
+### c. Layout and Component Overrides
+
+You can extend or override MDX components via `mdx-components.tsx`:
+
+```typescript
+import defaultMdxComponents from 'fumadocs-ui/mdx';
+
+export function getMDXComponents(components) {
+  return {
+    ...defaultMdxComponents,
+    ...components,
+  };
+}
+```
+
+Customize elements like links, headings, code blocks for your branding or UX needs.
+
+## 5. Practical Workflow: Update and Validate Configuration
+
+<Steps>
+<Step title="Edit `source.config.ts` Schema">
+Customize or enhance frontmatter metadata validation as needed for your docs.
+</Step>
+<Step title="Adjust `lib/source.ts` if Needed">
+Confirm your documentation base URL and sources are set correctly.
+</Step>
+<Step title="Customize MDX Options">
+Add plugins for enhanced markdown rendering.
+</Step>
+<Step title="Restart Development Server">
+Run `npm run dev` or equivalent to apply changes.
+</Step>
+<Step title="Verify in Browser">
+Open http://localhost:3000/docs and confirm changes display correctly.
+</Step>
+</Steps>
+
+## 6. Troubleshooting Common Issues
+
+<AccordionGroup title="Troubleshooting Initial Configuration">
+<Accordion title="Metadata Validation Errors">
+If you see errors about missing or invalid frontmatter:
+
+- Check your frontmatter in `.mdx` files for required fields
+- Validate your custom schema syntax
+- Restart your Next.js app after schema changes
+</Accordion>
+<Accordion title="MDX Plugin Errors">
+Plugin configuration errors usually stem from missing dependencies:
+
+- Ensure all npm packages for plugins are installed
+- Check compatibility of plugin versions with your Next.js and MDX versions
+</Accordion>
+<Accordion title="Routing Issues After Config Changes">
+If content URLs break after modifying `lib/source.ts` or `baseUrl`:
+
+- Verify `baseUrl` matches your deployed path
+- Clear Next.js `.next` build cache
+- Confirm links in the UI point to correct paths
+</Accordion>
+</AccordionGroup>
+
+## 7. Next Steps
+
+After configuring your documentation source and schema, proceed to:
+
+- [Installing and Setting Up RunRL Docs](/guides/getting-started/installation) to ensure your docs system is fully operational
+- [First Successful Run](/getting-started/first-steps/first-usage) to test your documentation rendering
+- [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting) for common pitfalls
+
+
+---
+
+For detailed schema customization and feature extensions, review the [Fumadocs MDX documentation](https://fumadocs.vercel.app/docs/mdx).
+
+---
+
+### Summary
+
+RunRL Docs' initial configuration centers on defining and customizing the core `source.config.ts` to enforce frontmatter and metadata validation, adjusting MDX options, and ensuring your documentation source is linked and rendered correctly. Authentication setup is outside the core scope but can be layered on as needed in your hosting environment. Following the steps in this guide will prepare your project for a smooth user experience and pave the way for advanced customization.

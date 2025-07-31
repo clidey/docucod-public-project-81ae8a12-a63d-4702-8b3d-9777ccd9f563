@@ -1,0 +1,206 @@
+---
+title: "Request & Response Examples"
+description: "Offers copy-paste examples of typical API requests and responses, clarifying how to use endpoints effectively and what outputs to expect."
+---
+
+# Request & Response Examples
+
+This page offers practical, copy-paste examples showing how to use the main API endpoints in RunRL Docs. These examples reveal typical request formats, demonstrate the expected responses, and clarify how to work effectively with the API in real-world scenarios. By following these, you will confidently integrate and interact with the API to achieve swift and predictable results.
+
+---
+
+## 1. Overview
+
+The purpose of this page is to provide straightforward, ready-to-use request and response samples for the RunRL Docs API. It complements the API Reference by anchoring abstract endpoint details with concrete examples.
+
+### Who This Helps
+- **Developers** who want to jumpstart API integration without guesswork
+- **Technical writers** documenting usage patterns
+- **QA engineers** verifying API functionality
+
+### What You'll Find
+- Typical request constructions with headers and parameters
+- Realistic response payloads
+- Status codes and error cases
+
+---
+
+## 2. Search API Example
+
+The `GET /api/search` endpoint supports querying the documentation content with a search string. Below you will find fully functional curl and programmatic request examples along with sample responses.
+
+### Endpoint Summary
+- **HTTP Method:** GET
+- **Path:** `/api/search`
+- **Query Parameter:** `q` (required, string)
+
+### Typical Use Case
+You want to find documentation pages related to a specific topic by keyword search.
+
+### Example Request
+```bash
+curl -X GET 'https://your-domain.com/api/search?q=authentication' \
+     -H 'Accept: application/json'
+```
+
+### Example Response
+```json
+{
+  "results": [
+    {
+      "title": "Authentication & Authorization",
+      "url": "/docs/api-reference/auth-and-errors/authentication",
+      "snippet": "Learn how to authenticate your API requests securely using bearer tokens."
+    },
+    {
+      "title": "Error Handling & Status Codes",
+      "url": "/docs/api-reference/auth-and-errors/error-handling",
+      "snippet": "Common errors during authentication and API usage with guidelines to resolve them."
+    }
+  ],
+  "total": 2
+}
+```
+
+### Explanation
+- The response returns a list of pages matching the query with a snippet summarizing each match.
+- `total` indicates the number of matched results.
+
+### Code Example (JavaScript, Fetch API)
+```javascript
+async function searchDocs(query) {
+  const url = new URL('/api/search', window.location.origin);
+  url.searchParams.append('q', query);
+
+  const response = await fetch(url.toString(), {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  if (!response.ok) {
+    throw new Error(`Search failed: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// Usage:
+searchDocs('authentication')
+  .then(results => console.log(results))
+  .catch(error => console.error(error));
+```
+
+---
+
+## 3. Authentication Example (Bearer Token)
+
+Many endpoints require bearer token authentication. Below is an example of how to include the token in API requests.
+
+### Request Example
+```bash
+curl -X GET 'https://your-domain.com/api/some-protected-endpoint' \
+  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \
+  -H 'Accept: application/json'
+```
+
+### Troubleshooting Tip
+Ensure your token is not expired and has correct scopes for the endpoint.
+
+---
+
+## 4. Error Response Example
+
+When a request is malformed or unauthorized, the API returns meaningful error messages.
+
+### Example Unauthorized Request
+```bash
+curl -X GET 'https://your-domain.com/api/protected' \
+     -H 'Accept: application/json'
+```
+
+### Example Error Response
+```json
+{
+  "error": {
+    "code": 401,
+    "message": "Unauthorized access: Missing or invalid token."
+  }
+}
+```
+
+### Handling Errors in Code
+```javascript
+fetch('/api/protected', { headers: { 'Accept': 'application/json' } })
+  .then(async res => {
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error.message);
+    }
+    return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('API error:', error.message));
+```
+
+---
+
+## 5. Best Practices & Tips
+
+- **Always specify the `Accept: application/json` header** to receive consistent JSON responses.
+- **Use HTTPS** to secure API communication.
+- **Handle errors gracefully** by checking HTTP status codes and inspecting error bodies.
+- **Avoid sending unauthorized requests** to reduce unnecessary load and error logs.
+- **Limit search queries (`q`) to meaningful keywords** to optimize response relevance.
+
+---
+
+## 6. Common Pitfalls
+
+- Missing the search query parameter (`q`) will result in errors or unexpected responses.
+- Not including the Bearer token for protected endpoints leads to 401 Unauthorized errors.
+- Assuming all errors are network-related; always check the response body for API-specific error details.
+
+---
+
+## 7. Summary
+
+By using these practical request and response examples, you can rapidly prototype and integrate the RunRL Docs API into your workflows and applications. These examples also serve as a foundation to build error-resilient and secure API consumers.
+
+For deeper technical details, refer to the [API Reference Overview](./api-reference/core-api/endpoint-overview) and the [Authentication & Authorization Guide](./api-reference/auth-and-errors/authentication).
+
+---
+
+## Troubleshooting
+
+<AccordionGroup title="Common Issues & Solutions">
+<Accordion title="Search Returns No Results">
+- Verify that the query parameter `q` is present and contains valid keywords.
+- Check for typos or overly broad queries that might not match any content.
+- Ensure the API endpoint URL is correct.
+</Accordion>
+<Accordion title="Unauthorized Access Errors">
+- Confirm your authentication token is included and valid.
+- Check token expiration and refresh if necessary.
+- Review required scopes for the endpoint.
+</Accordion>
+<Accordion title="Unexpected Server Errors">
+- Retry after a brief wait as transient issues may occur.
+- Look for detailed messages in the error response body.
+- Contact support with request details if the problem persists.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Further Reading
+
+- [Core API Endpoint Overview](./api-reference/core-api/endpoint-overview)
+- [Authentication and Authorization](./api-reference/auth-and-errors/authentication)
+- [Error Handling & Status Codes](./api-reference/auth-and-errors/error-handling)
+- [SDKs & Integration Tools](./api-reference/usage-examples/sdk-and-tools)
+
+
+---
+
+*This documentation is part of RunRL Docs to empower developers with clear and precise API usage examples.*

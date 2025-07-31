@@ -1,0 +1,115 @@
+---
+title: "Endpoint Overview"
+description: "Provides a high-level summary of available API endpoints, including their main purposes and interaction models. This page orients users before they dive into specific endpoint documentation."
+---
+
+# Endpoint Overview
+
+Welcome to the Endpoint Overview page. Before diving into detailed API reference sections, this page gives you a clear, high-level orientation of the core API endpoints available within RunRL Docs. Understanding these endpoints and their interaction models lets you plan effective API integration tailored to your robotics reinforcement learning projects.
+
+---
+
+## Purpose of This Page
+
+This page serves as your gateway to the API landscape. It concisely maps out the main endpoints you will encounter, highlights their primary purposes, and explains how they enable you to interact with the system. Consider this your API map that guides you through the available operations and points you towards deeper endpoint-specific documentation.
+
+## How to Use This Page
+
+Use this overview to:
+
+- Quickly grasp what kinds of resources and actions the API supports.
+- Navigate easily to focused reference pages on endpoints relevant to your goals.
+- Visualize typical request-response workflows.
+- Understand interaction patterns such as querying or modifying data.
+
+This page lays the foundation for a confident, efficient discovery and consumption of the RunRL API.
+
+---
+
+## Core API Endpoints Summary
+
+Below is a curated list of the main API endpoints, grouped by their general function and interaction style.
+
+### 1. Search Endpoint
+
+- **Purpose**: Enables full-text searching across available documentation and indexed content.
+- **Use Case**: Quickly find relevant topics, keywords, or reference information without browsing manually.
+- **Interaction Model**: HTTP GET requests with query parameters specifying search terms.
+- **Related Documentation**: [Search Endpoint](/api-reference/core-api/search-endpoint)
+
+### 2. Authentication & Authorization Endpoints
+
+- **Purpose**: Manage user authentication tokens and access permissions.
+- **Use Case**: Securely obtain and refresh tokens for authorized API access.
+- **Interaction Model**: POST requests to submit credentials and receive tokens; token refresh workflows.
+- **Related Documentation**: [Authentication & Authorization](/api-reference/auth-and-errors/authentication)
+
+### 3. Error Handling & Status Code Endpoints
+
+- **Purpose**: Standardized endpoints and mechanisms for error reporting and status communication.
+- **Use Case**: Understand error codes, diagnose issues, and handle failures gracefully within your application.
+- **Interaction Model**: Typical API responses with HTTP status codes and structured error objects.
+- **Related Documentation**: [Error Handling & Status Codes](/api-reference/auth-and-errors/error-handling)
+
+### 4. Usage & SDK Examples
+
+- **Purpose**: Provide practical examples of request and response payloads across endpoints.
+- **Use Case**: Accelerate integration by seeing real API calls, response formats, and how to employ SDKs.
+- **Interaction Model**: Example scripts and usage patterns in popular languages and via command line.
+- **Related Documentation**: [Request & Response Examples](/api-reference/usage-examples/request-examples), [SDKs & Integration Tools](/api-reference/usage-examples/sdk-and-tools)
+
+---
+
+## Typical User Flow with API Endpoints
+
+1. **Authenticate**: Obtain your API token via the Authentication endpoint.
+2. **Search Content**: Use the Search endpoint to find specific documentation topics or data.
+3. **Interact with API**: Use other core endpoints (covered in detailed docs) to query or modify resources.
+4. **Handle Errors**: Integrate robust error handling using the conventions outlined in error handling documentation.
+5. **Leverage Examples**: Consult request/response examples and SDK guides to optimize your integration.
+
+---
+
+## Best Practices
+
+- Always authenticate before interacting with protected endpoints to prevent unauthorized access errors.
+- Structure your queries with appropriate parameters to maximize relevance and efficiency.
+- Implement comprehensive error handling based on status codes to build resilient applications.
+- Refer to SDKs and usage examples to decrease development time and reduce mistakes.
+- Regularly consult updated API reference pages to stay informed about new endpoints or changes.
+
+---
+
+## Common Pitfalls
+
+- **Ignoring Authentication**: Skipping authentication results in frequent 401 Unauthorized errors.
+- **Malformed Queries**: Omitting required query parameters or using invalid formats leads to 400 Bad Request errors.
+- **Improper Error Handling**: Not accounting for rate limits or server-side errors interrupts automated workflows.
+- **Overlooking API Versioning**: Ensure you use the compatible API version as specified in detailed endpoint docs.
+
+---
+
+## Next Steps
+
+Now that you understand the API landscape, explore these detailed sections to master each endpoint:
+
+- [Search Endpoint](/api-reference/core-api/search-endpoint): Deep dive into search functionality and query options.
+- [Authentication & Authorization](/api-reference/auth-and-errors/authentication): Learn how to securely interact with protected resources.
+- [Error Handling & Status Codes](/api-reference/auth-and-errors/error-handling): Master error interpretation and recovery.
+- [Request & Response Examples](/api-reference/usage-examples/request-examples): See practical request samples and response structures.
+- [SDKs & Integration Tools](/api-reference/usage-examples/sdk-and-tools): Discover tools to streamline your API usage.
+
+---
+
+## Support and Feedback
+
+Should you encounter any issues or have suggestions to improve the API or this documentation, please refer to the troubleshooting guide or open a discussion in the RunRL Docs repository:
+
+- [Troubleshooting Common Issues](/guides/usage-patterns/troubleshooting)
+- [RunRL Docs GitHub Repository](https://github.com/runrl/docs)
+
+Your feedback helps us enhance your developer experience.
+
+---
+
+Thank you for choosing RunRL Docs. With a clear understanding of these endpoints, you're empowered to build powerful, insightful integrations that accelerate your robotics reinforcement learning workflows.

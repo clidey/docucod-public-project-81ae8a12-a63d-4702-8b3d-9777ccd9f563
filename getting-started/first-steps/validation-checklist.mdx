@@ -1,0 +1,180 @@
+---
+title: "Quick Validation Checklist"
+description: "Run through essential checks to confirm your installation and configuration are correct. This page lists must-do steps and commands for immediate assurance."
+---
+
+# Quick Validation Checklist
+
+Ensure your RunRL installation and configuration are correctly set up by running through this essential checklist. Completing these steps confirms that your environment is ready for development and will save you time troubleshooting later.
+
+---
+
+## 1. Verify Installation
+
+Follow these steps to confirm RunRL is properly installed on your system.
+
+<Steps>
+<Step title="Check Python Version and Environment">
+Run the following command to confirm Python 3.8+ is installed and active:
+
+```bash
+python --version
+```
+
+You should see `Python 3.8` or higher.
+
+<Check>
+If the version is below 3.8 or the command is not found, install or update Python and ensure it's in your system PATH.
+</Check>
+</Step>
+
+<Step title="Validate RunRL Package Installation">
+Run:
+
+```bash
+pip show runrl
+```
+
+This command displays installed RunRL package details.
+
+<Check>
+If no details appear, RunRL is not installed. Refer to the [Installation Guide](/getting-started/setup-introduction/installing-runrl) to install it.
+</Check>
+</Step>
+
+<Step title="Run the RunRL Help Command">
+Confirm that the RunRL CLI is accessible by running:
+
+```bash
+runrl --help
+```
+
+Expected output is a summary of available commands.
+
+<Check>
+If this fails, re-check your PATH settings or reinstall RunRL.
+</Check>
+</Step>
+</Steps>
+
+---
+
+## 2. Confirm Configuration
+
+Ensure your RunRL configuration files are correctly set up.
+
+<Steps>
+<Step title="Locate Your Configuration File">
+Verify the presence of `source.config.ts` or equivalent config in your project root:
+
+```bash
+ls source.config.ts
+```
+
+<Check>
+Missing file? Create one by following the steps in [Initial Configuration](/getting-started/setup-introduction/configuration-basics).
+</Check>
+</Step>
+
+<Step title="Validate Configuration Schema">
+Run any schema validation tool or type-check your config (e.g., using TypeScript):
+
+```bash
+tsc --noEmit
+```
+
+<Check>
+Errors indicate a misconfigured file. Fix according to validation messages and see Configuration Basics for guidance.
+</Check>
+</Step>
+</Steps>
+
+---
+
+## 3. Run a Simple Operation
+
+Verify a basic RunRL command completes successfully to confirm full integration.
+
+<Steps>
+<Step title="Create a Workspace Directory">
+Make a new directory to work in:
+
+```bash
+mkdir runrl-workspace && cd runrl-workspace
+```
+
+</Step>
+
+<Step title="Run a Sample Command">
+Execute the default example command that runs a basic RL task:
+
+```bash
+runrl run example
+```
+
+<Check>
+Expected output includes steps of the RL environment running without errors.
+</Check>
+</Step>
+
+<Step title="Interpret Results">
+Confirm output includes expected status lines like "Episode Complete" or "Reward obtained".
+
+<Check>
+If the output is empty or errors appear, review logs carefully and consider consulting the [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting) page.
+</Check>
+</Step>
+</Steps>
+
+---
+
+## 4. Network and Permission Checks
+
+Confirm your system allows RunRL to run unrestricted.
+
+- Ensure no firewall or antivirus is blocking Python or `runrl` executable.
+- Confirm you have proper permissions to read/write needed directories.
+
+<Tip>
+On restricted corporate or university networks, you may need to whitelist RunRL in your firewall or run with administrator privileges.
+</Tip>
+
+---
+
+## 5. Final Confirmation
+
+If all previous steps pass without error, your RunRL installation and basic configuration are fully functional.
+
+<Check>
+You are now ready to proceed with advanced configuration and deploying real-world reinforcement learning projects.
+</Check>
+
+---
+
+## Additional Resources
+
+- [Installation Guide](/getting-started/setup-introduction/installing-runrl) for detailed setup steps.
+- [Initial Configuration](/getting-started/setup-introduction/configuration-basics) for configuration file customization.
+- [First Successful Run](/getting-started/first-steps/first-usage) for running your first full operation.
+- [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting) for resolving common errors.
+
+---
+
+## Troubleshooting Quick Tips
+
+<AccordionGroup title="Common Validation Issues">
+<Accordion title="RunRL Command Not Found">
+Verify your PATH environment variable includes your Python Scripts directory where RunRL installs.
+</Accordion>
+<Accordion title="Configuration File Errors">
+Check syntax carefully and ensure you are using supported schema keys as per Configuration Basics guide.
+</Accordion>
+<Accordion title="Sample Run Fails">
+Confirm dependencies are installed and environment Python version matches RunRL requirements.
+</Accordion>
+</AccordionGroup>
+
+
+---
+
+Successful validation is your gateway to fully leveraging RunRL’s powerful robotics reinforcement learning capabilities with confidence and speed.

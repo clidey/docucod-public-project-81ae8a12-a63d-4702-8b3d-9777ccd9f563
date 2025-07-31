@@ -1,0 +1,141 @@
+---
+title: "First Successful Run"
+description: "Follow a guided path through your first successful execution with RunRL, ensuring you can validate the installation and basic operation. Illustrative examples are provided for quick wins."
+---
+
+# First Successful Run
+
+Welcome to your first hands-on experience with RunRL. This guide walks you through executing your initial operation with confidence, validating your installation, and understanding basic outcomes. You'll complete a simple, fully functional example that confirms everything is set up correctly and ready for your reinforcement learning robotics journey.
+
+---
+
+## 1. Confirm Installation and Environment
+
+Before starting your first operation, verify your environment is ready:
+
+- Ensure you have installed the RunRL Python client following the [Installation Guide](/getting-started/setup-introduction/installing-runrl).
+- Confirm all dependencies (especially Python 3.8+ and required libraries) are present.
+- Open your terminal or command line interface where RunRL commands will be executed.
+
+<Tip>
+If you have not completed installation yet, visit the [Installation Guide](/getting-started/setup-introduction/installing-runrl) first to avoid errors.
+</Tip>
+
+---
+
+## 2. Prepare Your Workspace
+
+Create a new directory for your first RunRL project to keep things tidy and organized:
+
+```bash
+mkdir runrl-first-run
+cd runrl-first-run
+```
+
+This directory will hold your configuration files and output data.
+
+---
+
+## 3. Run Your First Command
+
+RunRL provides a simple command to launch an agent-environment interaction simulation, demonstrating basic workflow and output.
+
+### Step-by-Step Execution
+
+1. Run the following command to start a default example interaction:
+
+```bash
+runrl run --example basic
+```
+
+2. Observe the console output showing:
+   - Agent initialization
+   - Environment setup
+   - Step-by-step action and reward logging
+   - Completion summary
+
+### Expected Result
+
+The output should display a sequence of steps where the RL agent takes actions and receives rewards.
+
+A typical success completion message looks like:
+
+```
+Episode completed successfully.
+Total Reward: 10.5
+```
+
+<Tip>
+Make sure your terminal window can display streaming logs; if the output seems frozen, check your environment or restart the terminal.
+</Tip>
+
+---
+
+## 4. Validate Results
+
+After running the simulation:
+
+- Confirm that the process ended without errors.
+- Note the total reward and episode length printed in the summary.
+- Check the project folder for any generated logs or artifacts.
+
+<Tip>
+If no output or an error appears, confirm your RunRL installation with the verification steps in the [Installation Guide](/getting-started/setup-introduction/installing-runrl#verification-steps).
+</Tip>
+
+---
+
+## 5. Understanding the Output
+
+The example run provides immediate insight:
+
+- **Agent Initialization** confirms that RunRL can load and configure an agent.
+- **Environment Interaction** shows the agent interacting step-by-step with its simulated environment.
+- **Reward Tracking** gives you measurable feedback on agent performance.
+
+This cycle reflects the core reinforcement learning loop central to real-world robotics applications.
+
+---
+
+## 6. Next Steps
+
+With your first operation succeeded, consider these actions:
+
+- Explore configuring your own environment and agent settings through [Initial Configuration](/getting-started/setup-introduction/configuration-basics).
+- Review the [Core Concepts & Terminology](/overview/introduction-core-concepts/core-concepts-terminology) to deepen your understanding.
+- Proceed to [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting) if you encounter problems.
+
+---
+
+## Troubleshooting Common Issues
+
+<AccordionGroup title="Common First Run Issues">
+<Accordion title="RunRL command not found">
+Check whether RunRL was installed in your system PATH. Try reinstalling or activating the appropriate Python environment.
+</Accordion>
+<Accordion title="Permission denied or access errors">
+Verify you have correct permissions; on Unix systems, you may need to use `sudo` or adjust user access.
+</Accordion>
+<Accordion title="Python version errors">
+RunRL requires Python 3.8 or higher. Check your Python version with `python --version` or `python3 --version`.
+</Accordion>
+<Accordion title="No output or freezing during run">
+Confirm dependencies are properly installed and network access is available if needed. Restart the terminal session.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Summary Checklist
+
+- [x] RunRL installed and verified
+- [x] Workspace directory created
+- [x] Executed the example command `runrl run --example basic`
+- [x] Confirmed successful episode completion and reward output
+- [x] Validated logs and artifacts if generated
+
+---
+
+You have now completed your first successful operation with RunRL. This foundational success sets the stage for customizing workflows, experimenting with environments, and progressing deeper into reinforcement learning robotics.
+
+Happy Developing!
