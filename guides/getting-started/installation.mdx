@@ -3,4 +3,184 @@ title: "Installing and Setting Up RunRL Docs"
 description: "A step-by-step walkthrough to get RunRL documentation up and running locally or in your preferred environment. Covers installing dependencies, project structure, and initial configuration, empowering users to start contributing or consuming docs within minutes."
 ---
 
-*This page will automatically be generated from the codebase*
+# Installing and Setting Up RunRL Docs
+
+RunRL Docs is designed to provide a streamlined documentation experience for robotics developers using reinforcement learning. This guide walks you through installing and setting up the RunRL documentation system on your local machine or environment so you can start contributing or consuming documentation quickly.
+
+---
+
+## 1. Workflow Overview
+
+### What This Guide Helps You Accomplish
+You'll install all necessary dependencies, understand the project structure, perform initial configuration, and run the documentation site locally or in your environment.
+
+### Prerequisites
+- Node.js installed (v14 or later recommended)
+- NPM or Yarn package manager
+- Basic familiarity with terminal/command prompt usage
+
+### Expected Outcome
+After completing this guide, you'll have RunRL Docs running locally with full navigation and search capabilities enabled.
+
+### Estimated Time
+15-30 minutes
+
+### Difficulty Level
+Beginner to Intermediate
+
+---
+
+## 2. Step-by-Step Instructions
+
+### Step 1: Clone the Repository
+Get the latest RunRL Docs source code from GitHub.
+
+```bash
+git clone https://github.com/runrl/docs.git
+cd docs/rldocs
+```
+
+After cloning, navigate to the `rldocs` directory where the Next.js application lives.
+
+### Step 2: Install Dependencies
+Install all required Node.js packages.
+
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+This command sets up `fumadocs-ui`, `fumadocs-mdx`, and other required libraries.
+
+### Step 3: Understand Project Structure
+Familiarize with key files and folders:
+
+- `app/`: Contains the Next.js app entry and layout (`layout.tsx`) integrating global providers like search.
+- `lib/source.ts`: Configures your documentation content source adapter.
+- `.source/source.config.mjs` and `source.config.ts`: Define the MDX and metadata schema configurations.
+- `content/docs/`: Where the actual documentation MDX content lives.
+- `next.config.mjs`: Applies MDX integration for Next.js.
+
+This structure allows seamless authoring and rendering of documentation pages.
+
+### Step 4: Run the Local Development Server
+Start the Next.js server to preview documentation.
+
+```bash
+npm run dev
+# or
+pnpm dev
+# or
+yarn dev
+```
+
+Open your browser and navigate to `http://localhost:3000` to see the live documentation site.
+
+### Step 5: Verify Setup
+Confirm the site loads with:
+- Navigation menu showing section groups and pages
+- Search box powered by Orama search
+- Content pages rendering markdown and MDX correctly
+
+If these elements display, your setup is successful.
+
+---
+
+## 3. Initial Configuration
+
+### Edit `source.config.ts` for Customization
+Customize frontmatter schemas and MDX options if you want tailored metadata validation or MDX features.
+
+Example snippet:
+
+```ts
+import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from 'fumadocs-mdx/config';
+
+export const docs = defineDocs({
+  docs: { schema: frontmatterSchema },
+  meta: { schema: metaSchema },
+});
+
+export default defineConfig({
+  mdxOptions: {
+    // Customize MDX parsing and plugins here
+  },
+});
+```
+
+This controls how documentation frontmatter and metadata validate and render.
+
+### Customize `app/layout.tsx` for UI Enhancements
+You can modify the global layout, including fonts, theming, and search integration.
+
+For example, the setup uses Google's Inter font and integrates `fumadocs-ui` providers for unified theming and search.
+
+---
+
+## 4. Tips & Best Practices
+
+- **Keep dependencies updated:** Regularly run `npm update` to stay current with latest fixes.
+- **Write frontmatter carefully:** Use defined schemas to maintain consistency in metadata.
+- **Test changes locally:** Use the development server before pushing changes.
+- **Use MDX components:** Leverage custom MDX components provided by `fumadocs-ui` for rich documentation content.
+
+## 5. Troubleshooting Common Issues
+
+<AccordionGroup title="Troubleshooting Setup Issues">
+<Accordion title="The Server Doesn't Start or Shows Errors">
+- Ensure Node.js and your package manager versions meet requirements.
+- Delete `node_modules` and reinstall dependencies.
+- Check for typos or missing config files.
+</Accordion>
+<Accordion title="Documentation Content Not Rendering">
+- Verify MDX files exist in `content/docs/`.
+- Confirm your `source.config.ts` is correctly imported and applied.
+- Ensure your import paths stay relative and correct.
+</Accordion>
+<Accordion title="Search Is Not Working">
+- Confirm `SearchProvider` is wrapping your app in `layout.tsx`.
+- Make sure content indexing has completed in dev mode.
+- Check console for errors related to Orama search.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 6. Next Steps
+
+- Explore [Initial Configuration](/getting-started/setup-introduction/configuration-basics) to deepen customization skills.
+- Proceed to [First Successful Run](/getting-started/first-steps/first-usage) to verify your installation end-to-end.
+- Learn to author docs effectively in [Authoring and Managing MDX-Based Documentation](/guides/usage-patterns/authoring-mdx).
+
+
+---
+
+## Appendix: Example Commands Recap
+
+```bash
+# Clone repository
+ git clone https://github.com/runrl/docs.git
+ cd docs/rldocs
+
+# Install dependencies
+ npm install
+
+# Run development server
+ npm run dev
+
+# Open browser
+ http://localhost:3000
+```
+
+---
+
+For more detailed architectural insights, see the [System Architecture overview](/overview/architecture-features-overview/system-architecture).
+
+---
+
+<Check>
+You're now ready to run and develop with RunRL Docs locally, enabling your team to build rich, searchable documentation tailored for robotics reinforcement learning projects.
+</Check>
