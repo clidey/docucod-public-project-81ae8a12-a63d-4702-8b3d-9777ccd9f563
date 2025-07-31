@@ -3,4 +3,145 @@ title: "System Requirements & Prerequisites"
 description: "Check all required software, supported operating systems, and any environment dependencies you need to prepare before installing RunRL."
 ---
 
-*This page will automatically be generated from the codebase*
+# System Requirements & Prerequisites
+
+Before installing RunRL, it is essential to ensure your system meets the necessary requirements and dependencies. This guarantees a smooth installation and setup experience, enabling you to quickly move forward to building and running your first reinforcement learning project in real-world robotics.
+
+---
+
+## 1. Supported Operating Systems
+
+RunRL supports the following operating systems for development and deployment:
+
+- **Linux** (Ubuntu 20.04 LTS or later recommended)
+- **macOS** (Catalina 10.15 or later)
+- **Windows** (Windows 10, version 1903 or later; Windows Subsystem for Linux (WSL) recommended for compatibility)
+
+> While RunRL may run on other OS variants, these are the officially tested and supported platforms.
+
+---
+
+## 2. Hardware Requirements
+
+Ensure your machine meets the baseline hardware specs:
+
+- **Memory:** Minimum 8 GB RAM; 16 GB or higher recommended for large-scale experiments.
+- **Disk Space:** At least 5 GB free disk space for installation and datasets.
+- **Processor:** Modern multi-core CPU (Intel i5/Ryzen 5 or better).
+
+> For projects involving GPU acceleration, ensure your GPU drivers are installed and updated separately.
+
+---
+
+## 3. Software Dependencies
+
+RunRL relies on a few core dependencies that must be installed on your system before proceeding.
+
+### 3.1 Python Environment
+
+- Python **3.8** or newer
+
+It is recommended to use a virtual environment manager such as `venv` or `conda` to avoid conflicts with system Python packages.
+
+```bash
+python3 --version
+# Expected Output: Python 3.8.x or higher
+
+# Create and activate a virtual environment
+python3 -m venv runrl-env
+source runrl-env/bin/activate  # Linux/macOS
+runrl-env\Scripts\activate   # Windows
+```
+
+### 3.2 Required Libraries
+
+RunRL installation handles most Python package installations. However, ensure you have the following base tools:
+
+- **pip** updated to the latest version
+- **git** for version control and cloning repositories
+
+To update `pip`:
+
+```bash
+pip install --upgrade pip
+```
+
+---
+
+## 4. Network & Access Requirements
+
+- Reliable internet connection for downloading dependencies and packages.
+- Firewall settings and proxy configuration may need adjustment to allow package manager traffic (e.g., pip, npm/yarn).
+- For access to private repositories or resources (if applicable), ensure your credentials and SSH keys are configured beforehand.
+
+---
+
+## 5. Permissions and Accounts
+
+- Admin or sudo privileges may be required during installation for modifying system packages or drivers.
+- Access to online package repositories (e.g., PyPI) without restrictions.
+
+---
+
+## 6. Summary Checklist Before Installation
+
+<Check>
+- Confirm your OS is supported
+- Verify Python 3.8+ is installed and accessible
+- Set up and activate a Python virtual environment
+- Ensure `pip` and `git` are installed and functional
+- Verify hardware meets minimum memory, storage, and CPU requirements
+- Confirm internet access and firewall settings are compatible
+- Have necessary credentials ready (if private repositories or resources are involved)
+</Check>
+
+---
+
+## Troubleshooting Common Prerequisite Issues
+
+<AccordionGroup title="Common Issues and Solutions">
+<Accordion title="Python Version Not Found or Too Low">
+Ensure Python 3.8 or greater is installed and reachable from your command line:
+
+```bash
+python3 --version
+```
+
+If an older version appears, install a newer Python or configure your PATH correctly.
+</Accordion>
+<Accordion title="Virtual Environment Activation Fails">
+On Windows, be sure to run the Command Prompt or PowerShell as Administrator, and if execution policies block scripts, run:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+Then try activating the environment again.
+</Accordion>
+<Accordion title="Firewall or Network Blocks Package Downloads">
+Check proxy or firewall settings, or try downloading packages manually from a network with fewer restrictions. Configuring environment variables like `HTTP_PROXY` and `HTTPS_PROXY` might be necessary.
+</Accordion>
+<Accordion title="Insufficient Disk Space or Memory Errors">
+Free up disk space and close unnecessary applications to free RAM. Consider upgrading hardware if running large experiments.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Next Steps
+
+Once all prerequisites are verified and your system is prepared, proceed to the **Installation Guide** to install RunRL smoothly:
+
+📄 [Installation Guide](/getting-started/setup-introduction/installing-runrl)
+
+You may also want to review the **Initial Configuration** page to learn how to set up your environment variables and connection details:
+
+📄 [Initial Configuration](/getting-started/setup-introduction/configuration-basics)
+
+---
+
+This page ensures you're ready to install and start working with RunRL confidently and without interruption. Preparing your environment in advance prevents common pitfalls and accelerates your journey toward running your first reinforcement learning operation on real-world robotics.
+
+---
+
+_If you encounter issues beyond prerequisites, consult the_ [Troubleshooting Setup Issues](/getting-started/first-steps/troubleshooting) _page for detailed solutions._
