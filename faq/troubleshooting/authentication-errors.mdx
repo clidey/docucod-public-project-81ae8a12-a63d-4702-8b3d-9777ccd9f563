@@ -3,4 +3,131 @@ title: "Resolving Authentication Failures"
 description: "Describes common reasons for authentication errors in docs and how to resolve them, including configuration guidance and links to deeper resources."
 ---
 
-*This page will automatically be generated from the codebase*
+# Resolving Authentication Failures
+
+Authentication is the gateway to using RunRL Docs securely and effectively. When authentication fails, your workflow halts, and documentation features become inaccessible. This guide walks you through the common reasons for authentication errors you might encounter, how to resolve them, and best practices to ensure seamless access.
+
+---
+
+## Frequently Asked Questions
+
+### Why am I getting an authentication failure?
+Authentication failures usually happen because of incorrect or missing credentials, expired tokens, misconfigured permissions, or network issues preventing access to the authentication server.
+
+### How do I know if my token is expired or invalid?
+Tokens often come with expiry timestamps. If you try to access resources and receive a "401 Unauthorized" or equivalent error, your token may be expired or revoked.
+
+### What configuration settings affect authentication?
+Ensure your client configuration includes the correct authentication endpoint, bearer token, and any required scopes/permissions as documented in the Authentication & Authorization guide.
+
+### Can I use multiple authentication methods?
+RunRL Docs primarily supports bearer token authentication; other methods are not supported unless explicitly documented.
+
+### How do I refresh or obtain a new token?
+Follow your organization's token issuance workflow or refer to your authentication provider's process. Always update your RunRL Docs client configuration with the new token.
+
+---
+
+## Common Causes and How to Fix Them
+
+### 1. Missing or Incorrect Tokens
+- **Symptom:** Requests return 401 Unauthorized or 403 Forbidden.
+- **Check:** Ensure your request headers include the `Authorization: Bearer <token>` header with a valid token.
+- **Fix:** Obtain or generate a valid token and update your client configuration.
+
+### 2. Expired Tokens
+- **Symptom:** Authentication works initially but fails after some time.
+- **Check:** Verify token expiry dates or error messages indicating expiration.
+- **Fix:** Refresh your token by following your token provider's refresh process.
+
+### 3. Insufficient Scopes or Permissions
+- **Symptom:** Access denied errors despite valid tokens.
+- **Check:** Confirm your token has the necessary scopes/permissions for the requested resource as per the [Authentication & Authorization guide](/api-reference/auth-and-errors/authentication).
+- **Fix:** Request or regenerate tokens with required scopes.
+
+### 4. Configuration Errors
+- **Symptom:** Errors indicating inability to reach authentication endpoints or malformed requests.
+- **Check:** Review your configuration files (e.g., `source.config.ts`) for correct authentication endpoint URLs and settings.
+- **Fix:** Correct any typos or invalid URLs in authentication configuration.
+
+### 5. Network or Connectivity Issues
+- **Symptom:** Timeouts, DNS failures, or connection refused errors when authenticating.
+- **Check:** Verify your network connection, firewall rules, and proxy settings to ensure access to authentication servers.
+- **Fix:** Resolve network issues or whitelist required endpoints.
+
+---
+
+## Step-by-Step Resolution Workflow
+
+<Steps>
+<Step title="Verify Token Presence and Format">
+Check your client requests include an `Authorization` header with the format: `Bearer <valid-token>`.
+</Step>
+<Step title="Confirm Token Validity">
+Ensure the token hasn't expired by checking issued and expiry timestamps or error responses.
+</Step>
+<Step title="Review Permissions and Scopes">
+Verify that your token's scopes match the permissions required by RunRL Docs endpoints.
+</Step>
+<Step title="Inspect Configuration Settings">
+Double-check your configuration files, especially authentication URLs and token references.
+</Step>
+<Step title="Test Network Connectivity">
+Ping or traceroute the authentication server endpoint to verify network accessibility.
+</Step>
+<Step title="Retry Authentication with Corrected Details">
+Apply any discovered fixes and attempt to authenticate again.
+</Step>
+</Steps>
+
+---
+
+## Practical Tips and Best Practices
+
+- **Use environment variables** to securely store and inject tokens into your configuration, minimizing exposure.
+- **Automate token refreshes** in your workflows where supported by your authentication provider.
+- **Log and monitor authentication attempts** to detect issues early and gather error details.
+- **Consult the [Authentication & Authorization guide](/api-reference/auth-and-errors/authentication) for detailed token usage and permissions requirements.**
+
+---
+
+## Troubleshooting Common Error Messages
+
+<AccordionGroup title="Error Messages Reference">
+<Accordion title="401 Unauthorized">
+Indicates missing, invalid, or expired token. Check your `Authorization` header and token validity.
+</Accordion>
+<Accordion title="403 Forbidden">
+Token is valid but lacks sufficient permissions (scopes). Ensure your token has the needed access rights.
+</Accordion>
+<Accordion title="Network Error or Timeout">
+Authentication request could not reach the server. Check network connectivity, firewall settings, and DNS resolution.
+</Accordion>
+<Accordion title="Malformed Request Errors">
+Check that your authentication header and request format comply with expected API specifications.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Where to Go Next
+
+- Review the [Authentication & Authorization guide](/api-reference/auth-and-errors/authentication) for comprehensive details on supported methods and token scopes.
+- For token lifecycle and API usage, see the [Request & Response Examples page](/api-reference/usage-examples/request-examples).
+- If issues persist after troubleshooting authentication, consult the [Troubleshooting Common Issues guide](/guides/usage-patterns/troubleshooting) and [Error Handling & Status Codes](/api-reference/auth-and-errors/error-handling).
+
+---
+
+## Contacting Support
+
+If you have followed all steps and still encounter authentication issues:
+
+<Tip>
+Gather relevant request logs, error messages, and configuration snapshots before contacting support. This will speed up issue resolution.
+</Tip>
+
+Reach out through official support channels linked on the main RunRL Docs site. Include exact error messages and steps taken for troubleshooting.
+
+---
+
+With these guidelines and solutions, you are empowered to resolve authentication challenges efficiently and maintain smooth access to RunRL Docs features and APIs.
