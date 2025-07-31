@@ -3,4 +3,131 @@ title: "Integration Possibilities"
 description: "Describes how the product integrates with content sources, documentation formats, and other developer or user systems. Outlines extensibility and connection opportunities for teams."
 ---
 
-*This page will automatically be generated from the codebase*
+# Integration Possibilities
+
+Explore how RunRL Docs seamlessly integrates with your existing content sources, documentation formats, and developer workflows, empowering your team to extend and connect the documentation environment to fit your unique needs.
+
+## Why Integration Matters
+
+Modern documentation ecosystems thrive when they connect with the tools and systems your team already uses. RunRL Docs is designed to be flexible and extensible, ensuring your documentation remains up-to-date, accessible, and collaborative—without friction.
+
+By embracing integration possibilities, you unlock the ability to unify documentation management, automate content updates, and tailor the docs experience for both roboticists and developers.
+
+---
+
+## Primary Integration Points
+
+### 1. Content Sources
+
+RunRL Docs connects directly to your documentation content through a powerful and standardized source adapter system:
+
+- **MDX-based Content**: Supports writing docs in MDX, combining Markdown with React components for dynamic and rich content.
+- **Source Adapters**: Utilizes `loader()` from `fumadocs-core/source` to ingest your content repository consistently.
+- **Custom Schemas**: Apply Zod schema validation (`frontmatterSchema` and `metaSchema`) to enforce metadata consistency and control content structure during ingestion.
+
+**Example of source configuration:**
+
+```ts
+import { loader } from 'fumadocs-core/source';
+import { docs } from '@/.source';
+
+export const source = loader({
+  baseUrl: '/docs',
+  source: docs.toFumadocsSource(),
+});
+```
+
+This setup enables a robust connection between your documentation files and the RunRL Docs UI, ensuring seamless update propagation and content availability.
+
+---
+
+### 2. Documentation Formats and Extensions
+
+- **MDX Components Customization**: Extend your documentation by integrating custom React components alongside default MDX components.
+
+```tsx
+import defaultMdxComponents from 'fumadocs-ui/mdx';
+import type { MDXComponents } from 'mdx/types';
+
+export function getMDXComponents(components?: MDXComponents): MDXComponents {
+  return {
+    ...defaultMdxComponents,
+    ...components, // your additional or overridden components
+  };
+}
+```
+
+This approach lets you embed interactive elements, live code examples, and other UI patterns directly into your docs to enhance clarity and engagement.
+
+- **Schema-driven Metadata**: The use of validated metadata schemas helps maintain consistency across your documentation, critical when producing automated docs or API references.
+
+- **Flexible Layouts and Themes**: By leveraging providers such as the `RootProvider` and `SearchProvider` (e.g., `fumadocs-ui/provider` and `fumadocs-ui/search`), you can customize global UI behavior including search capabilities and theming.
+
+---
+
+### 3. Integration with Developer and User Systems
+
+RunRL Docs supports easy linkage and deployment in developer environments, offering:
+
+- **Next.js Framework Compatibility**: Built on Next.js with React, supporting server-side rendering and static site generation for optimized performance and SEO.
+
+- **Routing and Metadata Management**: Automatically generates routes and structured metadata for each doc page, simplifying navigation and information architecture.
+
+- **Search Functionality**: Out-of-the-box integration with Orama full-text search allows fast and relevant search results within your documentation portal.
+
+- **Collaboration and Versioning**: Easily incorporate Git-based workflows since docs live alongside code. Automated builds pick up content changes, keeping docs in lockstep with development.
+
+- **Extensible Layouts**: Customize the docs experience with layouts that support complex navigation trees and sidebars tailored to user roles or content types.
+
+---
+
+## Practical Integration Scenarios
+
+- **Automate Documentation Updates**: Connect your CI/CD pipeline to update docs on each merge, using RunRL Docs source adapters and schemas to validate content before deployment.
+
+- **Embed Live Examples**: Extend MDX with React components to create interactive tutorials or simulations relevant to reinforcement learning robotics.
+
+- **Custom Search and Navigation**: Enhance developer productivity by adjusting search indexing or navigation for specific teams — e.g., engineers, researchers, or managers.
+
+- **Multi-Repo Documentation**: Integrate multiple content repositories into a single unified documentation portal by combining source loaders and metadata schemas.
+
+---
+
+## Best Practices for Extensibility
+
+- Define comprehensive and strict metadata schemas early to maintain document consistency.
+- Use the `getMDXComponents` function to centrally manage and share reusable MDX components.
+- Keep your layout components modular and configurable to adapt to growing documentation needs.
+- Implement thorough testing of documentation content as part of your development lifecycle.
+- Leverage the state-of-the-art search implementation for improved discoverability.
+
+---
+
+## Troubleshooting Common Integration Issues
+
+<AccordionGroup title="Integration Troubleshooting Tips">
+<Accordion title="MDX Component Rendering Issues">
+Ensure custom MDX components are correctly imported and registered in the `getMDXComponents` function. Missing components result in rendering errors or blank content.
+</Accordion>
+<Accordion title="Schema Validation Failures">
+Check that frontmatter metadata strictly follows the defined Zod schema. Metadata errors will prevent documentation pages from loading properly.
+</Accordion>
+<Accordion title="Content Updates Not Reflecting">
+Verify your build or deployment pipeline correctly triggers documentation rebuilds upon content changes. Also confirm the source loader references the updated docs.
+</Accordion>
+<Accordion title="Search Not Working as Expected">
+Make sure the `SearchProvider` is properly configured and wrapped around your docs layout to enable Orama search indexing and querying.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Next Steps
+
+To deepen your understanding of RunRL Docs integration:
+
+- Visit the [System Architecture](./system-architecture) page to see how integrations fit within the overall system.
+- Explore [Feature Overview](./feature-overview) for more on capabilities enabled by integration.
+- Start with our [Getting Started](../../getting-started/setup-introduction/introduction-overview) guides to set up your documentation environment.
+
+Harness the full potential of RunRL Docs by embedding it naturally in your developer workflows, ensuring your robotics reinforcement learning projects are supported by clear, accessible, and scalable documentation.
