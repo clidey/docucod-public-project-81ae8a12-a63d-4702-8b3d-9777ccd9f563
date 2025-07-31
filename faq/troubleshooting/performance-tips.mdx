@@ -3,4 +3,126 @@ title: "How can I optimize docs loading and performance?"
 description: "Presents actionable tips to improve documentation loading speed, efficiency, and smooth integration—ideal for users managing large content sets."
 ---
 
-*This page will automatically be generated from the codebase*
+# How can I optimize docs loading and performance?
+
+Efficiently loading large documentation collections is essential to provide a smooth, responsive experience for your users. This guide offers practical, actionable tips to help you enhance documentation loading speed, improve performance, and enable seamless integration, especially when managing extensive or dynamic content sets.
+
+---
+
+## 1. Understand Your Documentation Loading Flow
+
+Before optimizing, familiarize yourself with how RunRL Docs loads content:
+
+- **Content Source Adapter**: The [`loader()`](https://fumadocs.dev/docs/headless/source-api) interface in `lib/source.ts` handles accessing your content sources, including markdown or MDX files.
+- **Static Generation with Dynamic Routes**: Pages leverage Next.js dynamic routing with `generateStaticParams()` to pre-render documentation pages based on available content.
+- **On-Demand Content Loading**: Only the pages requested by users are loaded, driven by the slug parameters.
+
+Knowing this flow helps identify where to focus optimization efforts.
+
+---
+
+## 2. Optimize Content Source Management
+
+### Use Incremental Static Regeneration (ISR) or Static Generation
+
+- Pre-generate documentation pages when possible, reducing server load and accelerating page load times.
+- Configure Next.js to regenerate stale pages in the background, keeping content fresh without sacrificing performance.
+
+### Streamline Source Configurations
+
+- Customize `source.config.ts` to define frontmatter schemas thoughtfully; avoid overly complex or unnecessary metadata that may slow parsing.
+- Use concise frontmatter definitions to speed up content indexing.
+
+### Prune and Organize Content
+
+- Remove unused or duplicate documentation to lower build times.
+- Organize your content tree logically using the `source.pageTree` to enable efficient navigation and rendering.
+
+---
+
+## 3. Enhance MDX Rendering Performance
+
+- Use lightweight, customized MDX components by tailoring `getMDXComponents()` in `src/mdx-components.tsx`.
+- Limit embedded dynamic components inside MDX where possible to reduce render complexity.
+- Adopt best practices from the [Fumadocs MDX documentation](https://fumadocs.dev/docs/mdx) for component customization and schema design.
+
+---
+
+## 4. Enable Efficient Searching
+
+Since search can impact performance:
+
+- Use the built-in Orama-powered full-text search provided by `SearchProvider` as implemented in the `layout.tsx`.
+- Index only relevant content fields to minimize search data size.
+- Cache search results where feasible to accelerate repeat queries.
+
+---
+
+## 5. Leverage Next.js and Framework Features
+
+- Utilize Next.js image optimizations and configure caching headers correctly for static assets.
+- Employ React features like Suspense and lazy-loading where applicable, particularly for heavier or third-party components.
+- Monitor hydration warnings or errors to address and improve client-server content consistency.
+
+---
+
+## 6. Monitor and Profile Performance
+
+- Use browser dev tools and profiling extensions to identify bottlenecks in loading or rendering.
+- Analyze server-side logs or build output durations to pinpoint slow operations.
+- Regularly test with large content to anticipate scaling issues.
+
+<Tip>
+Remember: Optimization is an ongoing process. Profiling after each significant change ensures you capture real impact and avoid regressions.
+</Tip>
+
+---
+
+## 7. Troubleshoot Common Performance Issues
+
+<AccordionGroup title="Quick Troubleshooting Reference">
+<Accordion title="Documentation Pages Not Loading Quickly">
+- Verify static generation is enabled and pages are pre-built.
+- Check for heavy or complex MDX components that delay rendering.
+- Ensure content source adapter is performant and not introducing latency.
+</Accordion>
+<Accordion title="Slow Search Responses">
+- Confirm search indexes are up-to-date and not excessively large.
+- Look for network delays; consider enabling caching.
+- Simplify searchable fields if the index is too large.
+</Accordion>
+<Accordion title="Hydration Warnings or Client-Server Mismatch">
+- Review MDX content and components for non-deterministic rendering.
+- Suppress hydration warnings carefully using `suppressHydrationWarning` in layouts.
+- Audit usage of client-only hooks or side-effects inside MDX.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 8. Best Practices Summary
+
+- Plan your content structure for clarity and efficiency.
+- Use Next.js static generation features extensively.
+- Customize MDX rendering for lightweight components.
+- Enable fast, targeted search capabilities.
+- Continuously profile and measure performance impacts.
+- Keep dependencies and libraries up-to-date for best runtime optimizations.
+
+For deeper understanding, see related documentation on:
+
+- [System Architecture](/overview/architecture-features-overview/system-architecture) to understand key components involved in content loading.
+- [Navigating Documentation Content](/guides/getting-started/basic-navigation) for user navigation flows.
+- [Authoring and Managing MDX-Based Documentation](/guides/usage-patterns/authoring-mdx) to optimize your MDX files.
+
+---
+
+## Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs) — Learn about static generation, ISR, and performance tuning techniques.
+- [Fumadocs MDX Guide](https://fumadocs.dev/docs/mdx) — Custom MDX schema and component usage.
+- RunRL Docs GitHub Repository: [https://github.com/runrl/docs](https://github.com/runrl/docs) for current implementation patterns.
+
+---
+
+By following these guidelines, you will ensure your RunRL documentation loads swiftly, scales effectively, and offers your users a seamless reading and discovery experience.
