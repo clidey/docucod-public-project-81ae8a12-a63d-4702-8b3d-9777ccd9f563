@@ -3,4 +3,113 @@ title: "How do I find documentation pages?"
 description: "Explains how to navigate the documentation UI, search for specific pages, and understand dynamic page generation based on slugs. Highlights ways to use the search API for more advanced lookup."
 ---
 
-*This page will automatically be generated from the codebase*
+# How do I find documentation pages?
+
+Understanding how to locate the exact documentation page you need is essential to gaining the full value from RunRL Docs. This guide walks you through the navigation experience, explains the dynamic routing powered by slugs, and highlights how to use the search functionality effectively — enabling smooth, targeted access to content.
+
+---
+
+## 1. Navigating the Documentation UI
+
+RunRL Docs provides a user-friendly interface to browse and explore documentation organized in a logical tree structure. Here's how to make the most of it:
+
+- **Sidebar Navigation Tree:**
+  - Located on the left side, this tree reflects your documentation's hierarchy.
+  - Expand and collapse groups to find major sections and subpages.
+  - Click any item to open the corresponding page.
+
+- **Top Navigation & Breadcrumbs:**
+  - Quickly jump between top-level sections like Overview, Getting Started, Guides, API Reference, and FAQ.
+  - Breadcrumbs display your current page path, allowing you to move up the documentation hierarchy easily.
+
+- **Linking Within Content:**
+  - Content pages include links to closely related materials.
+  - These links are context-aware and use relative paths ensuring smooth navigation between related topics.
+
+<Tip>
+Explore the sidebar to familiarize yourself with the structure first. This helps you develop an intuitive mental map of the documentation.
+</Tip>
+
+## 2. Understanding Dynamic Page Generation (Slugs)
+
+RunRL Docs uses a dynamic routing mechanism based on **slugs**, an array representing URL path segments corresponding to nested page locations. This means:
+
+- URLs map directly to pages despite the content being organized in nested folders.
+- For example, a slug like `["getting-started", "installation"]` points to the "Installing and Setting Up RunRL Docs" page.
+- The system automatically generates static parameters for each slug, ensuring pages correspond precisely to your navigation choices.
+
+This dynamic approach allows:
+
+- Seamless addition and reorganization of documentation without breaking URLs.
+- Deep linking to any level in the documentation hierarchy.
+
+<Info>
+If you ever encounter a "Page Not Found" error, verify the slug URL path matches existing page paths exactly, including case and order.
+</Info>
+
+## 3. Using the Search API for Advanced Lookup
+
+Beyond browsing, the RunRL Docs search feature lets you find pages by keywords or phrases across all documentation content.
+
+- **Full-text Search:** Powered by the integrated Orama search provider, this looks across the entire documentation corpus.
+- **Search Bar Location:** The search input is accessible from any page in the top navigation.
+- **Search Syntax:** Simply type keywords, and results will return best matching pages sorted by relevance.
+- **Working with Results:** Search hits show page titles and snippets providing context; clicking a result takes you directly to that page.
+
+### Advanced Usage with Search API
+
+Developers and power users can leverage the `/api/search` endpoint directly to integrate custom searching capabilities or automate lookups:
+
+- Supports complex queries and filters.
+- Returns structured JSON results with metadata and content snippets.
+
+See the [Search Endpoint documentation](https://runrl-docs-url/api-reference/core-api/search-endpoint) for detailed usage patterns and examples.
+
+## 4. Practical User Flow Example
+
+Imagine you want to learn about how to troubleshoot documentation navigation issues:
+
+1. Start by clicking the **FAQ** tab in the sidebar.
+2. Use the sidebar filter or browse to "Troubleshooting & Performance."
+3. You find the page titled "Why isn't my documentation page displaying?" and open it.
+4. If unsure, use the search bar to type "navigation troubleshooting"; select the most relevant article from the results.
+
+This flow demonstrates combining browsing with searching for fastest access.
+
+## 5. Tips and Best Practices
+
+- **Use Breadcrumbs to Understand Context:** Always glance at the breadcrumb trail to see where you are in the docs.
+- **Use Search for Unknown Topics:** When you don't know exact page names, keywords in the search bar help find related topics.
+- **Bookmark Important Pages:** Save links of often referenced pages for quick revisit.
+- **Leverage Relative Links:** Inside content pages, relative links simplify jumping between related subjects without guesswork.
+
+## 6. Common Issues & Troubleshooting
+
+<AccordionGroup title="Common Navigation Issues & Solutions">
+<Accordion title="Page Not Found Errors">
+- Verify URL slug correctness including case and punctuation.
+- Refresh the page to reload content.
+- Clear browser cache if stale navigation data persists.
+- Confirm the page hasn’t been moved or deleted.
+</Accordion>
+<Accordion title="Search Yields No Results">
+- Check spelling and try simpler keywords.
+- Ensure search index is up to date (may require reloading the app).
+- If issue persists, consult the admin or documentation maintainers.
+</Accordion>
+<Accordion title="Sidebar Does Not Reflect New Pages">
+- Documentation content updates might require rebuilding or redeploying the site.
+- Contact your documentation administrator to verify source content.
+</Accordion>
+</AccordionGroup>
+
+## 7. Related Documentation
+
+- [Basic Navigation Guide](https://runrl-docs-url/guides/getting-started/basic-navigation) — deeper dive into navigation mechanics.
+- [Search Endpoint API Reference](https://runrl-docs-url/api-reference/core-api/search-endpoint) — for advanced programmatic search usage.
+- [System Architecture Overview](https://runrl-docs-url/overview/architecture-features-overview/system-architecture) — understand how pages and slugs map internally.
+- [Troubleshooting Common Issues](https://runrl-docs-url/guides/usage-patterns/troubleshooting) — comprehensive help for user issues.
+
+---
+
+By mastering navigation through the sidebar, breadcrumbs, and search, you'll rapidly find the documentation content you need without frustration. Combined with the dynamic URL slug system, RunRL Docs ensures you always have direct access to relevant, up-to-date information critical to your success.
