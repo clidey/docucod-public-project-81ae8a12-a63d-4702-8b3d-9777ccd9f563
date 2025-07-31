@@ -3,4 +3,187 @@ title: "Search Endpoint"
 description: "Details the /api/search endpoint, outlining how users can interact with this API, parameters, request/response examples, and best practices for querying resources."
 ---
 
-*This page will automatically be generated from the codebase*
+# Search Endpoint
+
+Explore the powerful `/api/search` endpoint, your gateway to querying and retrieving targeted information from the RunRL Docs dataset. This endpoint is designed to help you quickly locate relevant content by performing full-text searches with flexible parameters tailored to your needs.
+
+---
+
+## Overview
+
+The `/api/search` endpoint enables you to perform sophisticated search queries against the documentation content indexed by the RunRL Docs system. Whether you're seeking specific topics, troubleshooting guides, or code examples, this endpoint provides fast, relevant results in a structured format.
+
+### Key Features
+
+- **Full-text search:** Query across all documentation content.
+- **Parameter customization:** Control query scopes and result size.
+- **Efficient response:** Returns neatly structured data for easy integration.
+
+---
+
+## Endpoint Details
+
+### Base URL
+
+```
+/api/search
+```
+
+### Supported HTTP Method
+
+```
+GET
+```
+
+### Query Parameters
+
+| Parameter | Type   | Required | Description                                                |
+|-----------|--------|----------|------------------------------------------------------------|
+| `q`       | string | Yes      | The search query string. This is the term or phrase to search for in the documentation. |
+| `limit`   | number | No       | Maximum number of results to return. Defaults to 10.      |
+| `offset`  | number | No       | Starting point for paginated results. Defaults to 0.      |
+| `fields`  | string | No       | Comma-separated list of fields to include in the results (e.g., `title,summary,url`). If omitted, default fields are returned. |
+
+### Example Request
+
+```http
+GET /api/search?q=reinforcement+learning&limit=5 HTTP/1.1
+Host: yourrunrldocs.com
+Accept: application/json
+```
+
+---
+
+## Request Behavior and Usage
+
+1. **Basic Search:** Provide a simple query string with `q` to perform a standard search.
+2. **Pagination Control:** Use `limit` and `offset` to navigate through large sets of search results.
+3. **Field Selection:** Optimize response size by specifying only the fields you need with the `fields` parameter.
+
+<Tip>
+Combine pagination parameters with specific fields to efficiently integrate search results into your applications with minimal overhead.
+</Tip>
+
+---
+
+## Response Format
+
+The response is a JSON object containing metadata about the search and an array of search results.
+
+### Response Schema
+
+```json
+{
+  "query": "string",            // The original search query
+  "total_results": "number",   // Total number of matching entries
+  "limit": "number",           // Number of results returned
+  "offset": "number",          // Offset of results
+  "results": [                   // Array of result objects
+    {
+      "title": "string",      // The title of the document or section
+      "summary": "string",    // A short summary or snippet showing context
+      "url": "string"         // Relative link to the documentation page
+    }
+  ]
+}
+```
+
+### Example Response
+
+```json
+{
+  "query": "reinforcement learning",
+  "total_results": 42,
+  "limit": 5,
+  "offset": 0,
+  "results": [
+    {
+      "title": "Core Concepts & Terminology",
+      "summary": "An in-depth look at reinforcement learning and its applications in RunRL.",
+      "url": "/overview/introduction-core-concepts/core-concepts-terminology"
+    },
+    {
+      "title": "First Successful Run",
+      "summary": "Step-by-step guide to running your first reinforcement learning example.",
+      "url": "/getting-started/first-steps/first-usage"
+    }
+  ]
+}
+```
+
+---
+
+## Practical Usage Scenarios
+
+### Scenario 1: Quickly Finding an Installation Guide
+
+You want to find how to install the RunRL Docs package. Submit:
+
+```
+GET /api/search?q=installation+guide
+```
+
+The returned results will highlight relevant guides, with direct URLs to the sections.
+
+### Scenario 2: Paginated Access for Large Result Sets
+
+To implement infinite scroll or batch-processing features, use `limit` and `offset`:
+
+```
+GET /api/search?q=configuration&limit=10&offset=20
+```
+
+This fetches the second page of results, enabling smooth navigation.
+
+---
+
+## Best Practices
+
+- **Keep queries specific:** Detailed phrases yield more accurate results.
+- **Use pagination for UI integration:** Always control `limit` and `offset` to avoid large payloads.
+- **Cache frequent queries:** For repeated searches, cache results to reduce latency.
+
+<Check>
+Make sure your application properly handles zero-result responses to gracefully inform users when no matches are found.
+</Check>
+
+---
+
+## Common Pitfalls and Troubleshooting
+
+### No Results Returned
+
+- Verify your query parameter `q` is correctly URL-encoded.
+- Try broader or simpler search terms.
+- Ensure the index is up-to-date if running on a local or staging environment.
+
+### Unexpected Response Format
+
+- Confirm `Accept` headers request JSON.
+- Check for network issues or proxy configurations altering requests.
+
+### Rate Limiting or Timeout
+
+- Although not explicitly specified here, respect any documented rate limits.
+- Implement retry logic with exponential backoff if needed.
+
+---
+
+## Implementation Notes
+
+The `/api/search` endpoint is built atop `fumadocs-core`'s search server capabilities, leveraging the content source to deliver results. You can invoke this endpoint in your applications by simply issuing HTTP GET requests with appropriate query parameters.
+
+---
+
+## Summary
+
+The `/api/search` endpoint allows you to programmatically search the entire RunRL documentation with ease and precision, offering customizable parameters to tailor your queries and extract meaningful results efficiently. Use it as your primary tool to integrate search functionality and enhance user experience in any tooling or dashboard that works with RunRL Docs.
+
+---
+
+## Additional Resources
+
+- [Endpoint Overview](https://yourrunrldocs.com/api-reference/core-api/endpoint-overview) — Understand how `/api/search` fits within the broader API.
+- [Authentication & Authorization](https://yourrunrldocs.com/api-reference/auth-and-errors/authentication) — If your application requires secured access.
+- [Request & Response Examples](https://yourrunrldocs.com/api-reference/usage-examples/request-examples) — More sample usage patterns.
+- [Troubleshooting Common Issues](https://yourrunrldocs.com/guides/usage-patterns/troubleshooting) — Guide for resolving common API usage problems.
