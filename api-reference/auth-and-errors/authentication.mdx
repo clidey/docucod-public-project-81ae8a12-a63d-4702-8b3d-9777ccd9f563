@@ -3,4 +3,176 @@ title: "Authentication & Authorization"
 description: "Guides users through authenticating with the RunRL API, including supported auth methods, required headers, and best practices for secure integration."
 ---
 
-*This page will automatically be generated from the codebase*
+# Authentication & Authorization
+
+RunRL Docs API requires authentication to securely control access to its resources. This guide walks you through authenticating with the RunRL API, explains supported authentication methods, required headers, permission scopes, and best practices to ensure secure and smooth integration.
+
+---
+
+## 1. Overview of Authentication in RunRL Docs API
+
+The API enforces authentication on all sensitive endpoints to protect your documentation content and user data. To interact successfully with these endpoints, you must provide valid credentials with each request.
+
+### Supported Authentication Methods
+- **Bearer Token Authentication**: The primary authentication mechanism using bearer tokens passed in the HTTP `Authorization` header.
+
+### Why Authenticate?
+- Ensures that only authorized users can access or modify documentation data.
+- Enables role-based access control through scopes and permissions.
+- Protects your API usage from abuse and unauthorized calls.
+
+## 2. Authentication Methods
+
+### Bearer Token Authentication
+
+Every authenticated request must include the following HTTP header:
+
+```
+Authorization: Bearer <your_access_token>
+```
+
+**How to obtain an access token:**
+
+- Tokens are issued through your RunRL user or service account management system.
+- Typically obtained via OAuth 2.0 flows or API token generation tools provided by your organization.
+- Tokens have limited lifetimes and scopes tied to permissions.
+
+> The exact token issuance process and management may depend on your deployment or integration setup.
+
+### Token Format
+- Tokens are opaque strings.
+- Always keep your tokens secure to prevent misuse.
+
+## 3. Token Usage and Lifecycle
+
+- **Including Tokens in Requests:** Always include the `Authorization` header exactly as shown.
+- **Refreshing Tokens:** If tokens expire, your integration or client must obtain a new token through the appropriate refreshed mechanism outside the core API.
+- **Revocation:** Tokens can be revoked by administrators or upon user logout.
+
+> **Tip:** Never hardcode tokens in your code. Use secure environment variables or vaults.
+
+## 4. Scopes & Permissions
+
+RunRL API uses scopes to restrict access to resources. Your token must have the correct scopes for the endpoint you call.
+
+| Scope Name     | Description                                |
+|----------------|--------------------------------------------|
+| `read:docs`    | Read access to documentation content      |
+| `write:docs`   | Permission to modify or add documentation  |
+| `admin:docs`   | Full administrative access                 |
+
+Endpoints will reject requests with insufficient scope.
+
+## 5. Error Handling for Authentication
+
+If authentication fails, the API returns standard HTTP status codes with meaningful error messages.
+
+| Status Code | Error Type              | Description                                              |
+|-------------|-------------------------|----------------------------------------------------------|
+| 401         | Unauthorized            | Missing, invalid, or expired token                        |
+| 403         | Forbidden               | Token lacks required scope/permission                     |
+| 400         | Bad Request             | Malformed Authorization header                            |
+
+**Example error response:**
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Access token is missing or invalid."
+}
+```
+
+## 6. Best Practices for Secure API Usage
+
+- **Use HTTPS:** Always connect to the API over HTTPS to encrypt credentials.
+- **Protect Tokens:** Store tokens securely, restrict access, and rotate regularly.
+- **Least Privilege Principle:** Request only scopes you need.
+- **Avoid Token Leakage:** Do not expose tokens in logs, URLs, or client-side code.
+- **Handle Errors Gracefully:** Implement retry and error handling for token expiration or revocation.
+
+## 7. Example: Making an Authenticated Request
+
+Here’s a typical request to the `/api/search` endpoint with bearer token authentication:
+
+```http
+GET https://your-runrl-docs-domain.com/api/search?q=reinforcement+learning HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5c...
+Accept: application/json
+```
+
+**Expected successful response:**
+
+```json
+{
+  "results": [
+    {
+      "title": "Introduction to Reinforcement Learning",
+      "url": "/docs/introduction-core-concepts/what-is-runrl",
+      "snippet": "RunRL Docs offers..."
+    },
+    ...
+  ]
+}
+```
+
+## 8. Troubleshooting Authentication Issues
+
+### Common Issues
+- **Token expired:** Obtain a fresh token.
+- **Incorrect Authorization header format:** Ensure the header is exactly `Bearer <token>`.
+- **Missing required scopes:** Check token scopes with your identity provider.
+
+### Debugging Steps
+1. Inspect the exact request headers.
+2. Verify token validity and scopes.
+3. Check API endpoint documentation for required scopes.
+4. Review error messages and status codes.
+
+Visit [Troubleshooting Common Issues](/guides/usage-patterns/troubleshooting) for general troubleshooting strategies.
+
+---
+
+## 9. Additional Resources
+
+- [API Endpoint Overview](/api-reference/core-api/endpoint-overview) — Understand what endpoints require authentication.
+- [Error Handling & Status Codes](/api-reference/auth-and-errors/error-handling) — Learn how the API reports errors.
+- [SDKs & Integration Tools](/api-reference/usage-examples/sdk-and-tools) — Use official tools that manage authentication.
+
+
+---
+
+**Authenticate your requests confidently and securely to unlock the full capabilities of RunRL Docs.**
+
+
+<Check>
+Before starting, ensure you have a valid access token with required scopes from your RunRL account or system administrator.
+</Check>
+
+---
+
+## Authentication Flow Diagram
+
+```mermaid
+sequenceDiagram
+  participant Client as Client Application
+  participant API as RunRL API
+  participant AuthServer as Authentication Server
+
+  Client->>AuthServer: Request access token (e.g., OAuth flow)
+  AuthServer-->>Client: Return access token
+
+  Client->>API: Request resource with Authorization: Bearer token
+  API-->>API: Validate token and scopes
+  API-->>Client: Return requested resource (200 OK)
+
+  alt Token invalid or expired
+    API-->>Client: 401 Unauthorized with error message
+  end
+
+  alt Token scopes insufficient
+    API-->>Client: 403 Forbidden
+  end
+
+```
+
+---
