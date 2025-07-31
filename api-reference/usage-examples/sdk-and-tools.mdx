@@ -3,4 +3,179 @@ title: "SDKs & Integration Tools"
 description: "Highlights available SDK support and integration patterns, helping users leverage official tools for faster, more reliable API consumption."
 ---
 
-*This page will automatically be generated from the codebase*
+# SDKs & Integration Tools
+
+Leverage official SDKs and integration tools designed to accelerate your development with the RunRL Docs API. This page guides you through available SDK support, integration patterns, and best practices so you can consume the API faster, more reliably, and with less complexity.
+
+---
+
+## Why Use SDKs & Integration Tools?
+
+SDKs provide ready-made client libraries in popular programming languages that abstract network calls, handle authentication, and structure responses for you. Integration tools complement these by offering patterns and utilities to seamlessly embed RunRL Docs capabilities into your existing workflows or applications.
+
+Using these official resources helps you:
+
+- Save development time with tested, maintained client code
+- Reduce errors from manual request construction and parsing
+- Improve security by leveraging built-in authentication management
+- Gain access to language-specific helpers and idiomatic interfaces
+
+
+## Available SDKs
+
+RunRL Docs currently offers SDK packages tailored to common programming languages and environments. These SDKs are regularly updated to reflect API changes and include comprehensive documentation and examples.
+
+| SDK          | Language        | Installation Command               | Primary Use Case                     |
+|--------------|-----------------|----------------------------------|------------------------------------|
+| `runrl-python`  | Python          | `pip install runrl`               | Python applications, data science  |
+| `runrl-js`      | JavaScript/TypeScript | `npm install @runrl/sdk`         | Web apps, Node.js backend           |
+
+
+### Installation Examples
+
+#### Python
+```bash
+pip install runrl
+```
+
+#### JavaScript (npm)
+```bash
+npm install @runrl/sdk
+```
+
+
+### Quick Start Example: Python
+```python
+from runrl import RunRLClient
+
+client = RunRLClient(api_key='YOUR_API_KEY')
+response = client.search(query='robotics reinforcement learning')
+for doc in response.results:
+    print(doc.title)
+```
+
+### Quick Start Example: JavaScript
+```javascript
+import { RunRLClient } from '@runrl/sdk';
+
+const client = new RunRLClient({ apiKey: 'YOUR_API_KEY' });
+
+async function runSearch() {
+  const response = await client.search({ query: 'robotics reinforcement learning' });
+  response.results.forEach(doc => console.log(doc.title));
+}
+
+runSearch();
+```
+
+
+## Integration Patterns
+
+Successfully integrating RunRL Docs API into your project involves choosing the right pattern for your context. Below are common approaches:
+
+### 1. Direct SDK Usage
+
+Embed SDK clients directly into your application or backend service. This suits apps needing real-time or on-demand documentation search or retrieval.
+
+### 2. Server-Side Proxy
+
+Setup a backend endpoint that interfaces with RunRL SDK, applies additional logic or caching, and exposes tailored data to your frontend. This adds security and customization layers.
+
+### 3. Static Content Enrichment
+
+Use integration tools in your CMS or build pipeline to pull RunRL documentation metadata or search indexes, enriching your content with dynamic references or preprocessed data.
+
+
+### Best Practices for Integration
+
+- **Manage API Keys securely:** Never expose keys in client-side code without protection.
+- **Implement retry logic:** Leverage SDK built-in features or your own to handle transient network errors.
+- **Cache results:** Reduce API calls for frequent queries to improve performance.
+- **Respect rate limits:** Use the SDK’s handling of rate limits and backoff.
+- **Keep SDKs updated:** Regularly upgrade SDK versions to access new features and patches.
+
+
+## Troubleshooting Common Integration Issues
+
+<AccordionGroup title="Common Problems and Solutions">
+<Accordion title="Authentication Failures">
+
+Ensure your API key is valid and has the necessary scopes. SDKs will raise clear errors when authentication fails – check error messages carefully. Consider regenerating keys if issues persist.
+
+</Accordion>
+
+<Accordion title="Network Errors and Timeouts">
+
+Verify network connectivity and firewall rules. Utilize SDK configured retry mechanisms. Increase timeout settings in SDK configuration if needed.
+
+</Accordion>
+
+<Accordion title="Unexpected API Responses">
+
+Ensure you are using the latest SDK version compatible with the current API. Check the SDK documentation for any breaking changes or required updates.
+
+</Accordion>
+
+<Accordion title="Rate Limit Exceeded">
+
+Throttle your requests or implement exponential backoff. Monitor request volumes and optimize calls to avoid unnecessary repeated queries.
+
+</Accordion>
+
+</AccordionGroup>
+
+
+## Further Resources
+
+- [API Reference Overview](https://docs.runrl.com/api-reference/core-api/endpoint-overview) — Understand available API endpoints
+- [Authentication & Authorization](https://docs.runrl.com/api-reference/auth-and-errors/authentication) — Learn about token management
+- [Request & Response Examples](https://docs.runrl.com/api-reference/usage-examples/request-examples) — Explore practical API usage samples
+- [Troubleshooting Guide](https://docs.runrl.com/guides/usage-patterns/troubleshooting) — Solve common integration challenges
+
+
+## Next Steps
+
+Start by installing the appropriate RunRL SDK for your environment and experiment with basic search queries. Gradually expand to more advanced integrations like server-side caching or content enrichment as your project matures. Monitor SDK release notes for updates that can enhance your integration.
+
+If you encounter barriers, consult the related troubleshooting and authentication documentation to quickly identify causes and apply solutions.
+
+
+---
+
+By leveraging the official SDKs and integration patterns provided here, you empower your development team to build robust, efficient, and secure applications that harness the full potential of RunRL Docs API.
+
+
+---
+
+## Appendix: Example Full SDK Usage Flow
+
+```mermaid
+sequenceDiagram
+    participant ClientApp as "Your Application"
+    participant SDK as "RunRL SDK"
+    participant RunRLAPI as "RunRL Docs API"
+    
+    ClientApp->>SDK: Instantiate client with API key
+    SDK-->>ClientApp: Confirmation of client ready
+    ClientApp->>SDK: Submit search request (query parameter)
+    SDK->>RunRLAPI: Authenticate, send request
+    RunRLAPI-->>SDK: Return search results
+    SDK-->>ClientApp: Return parsed results
+    ClientApp->>ClientApp: Render documentation titles and snippets
+
+    Note right of ClientApp: Handle errors with try/catch
+    ClientApp->>SDK: Handle token refresh when needed
+
+    %% Styling for clarity
+    classDef clientApp fill:#f9f,stroke:#333,stroke-width:1px;
+    class ClientApp clientApp;
+```
+
+
+---
+
+
+## Summary
+This page delivers practical guidance on using RunRL Docs SDKs and integration tools. It covers available SDKs, installation, usage examples, integration patterns, best practices, and common troubleshooting advice, enabling developers to quickly and securely integrate RunRL Docs API into their applications.
+
+---
