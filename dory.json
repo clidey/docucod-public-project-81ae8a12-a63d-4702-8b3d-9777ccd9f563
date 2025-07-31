@@ -1,0 +1,142 @@
+{
+  "background": {
+    "decoration": "gradient"
+  },
+  "colors": {
+    "dark": "#1E3A8A",
+    "light": "#60A5FA",
+    "primary": "#60A5FA"
+  },
+  "favicon": "/favicon.svg",
+  "fonts": {
+    "family": "Montserrat",
+    "format": "woff2",
+    "source": "https://fonts.gstatic.com/s/googlesansflex/v5/t5sJIQcYNIWbFgDgAAzZ34auoVyXkJCOvp3SFWJbN5hF8Ju1x6sKCyp0l9sI40swNJwGpVd4AZzz0v6lJ4qFXNZhGjLvDSkV4USKMo6qQzwliVdHAy9jxTDHg_ugnAakpwGc-cxgUqDCIUI.woff2"
+  },
+  "icons": {
+    "library": "fontawesome"
+  },
+  "logo": {
+    "dark": "./logo/logo.svg",
+    "light": "./logo/logo.svg"
+  },
+  "name": "RunRL Documentation Portal",
+  "navigation": {
+    "tabs": [
+      {
+        "groups": [
+          {
+            "group": "Introduction \u0026 Core Concepts",
+            "pages": [
+              "overview/introduction-core-concepts/product-intro-value",
+              "overview/introduction-core-concepts/target-audience-use-cases",
+              "overview/introduction-core-concepts/core-concepts-terminology"
+            ]
+          },
+          {
+            "group": "System Architecture \u0026 Feature Overview",
+            "pages": [
+              "overview/architecture-features-overview/system-architecture",
+              "overview/architecture-features-overview/feature-overview",
+              "overview/architecture-features-overview/integration-overview"
+            ]
+          }
+        ],
+        "tab": "Overview"
+      },
+      {
+        "groups": [
+          {
+            "group": "Setup \u0026 Installation",
+            "pages": [
+              "getting-started/setup-introduction/introduction-overview",
+              "getting-started/setup-introduction/prerequisites",
+              "getting-started/setup-introduction/installing-runrl",
+              "getting-started/setup-introduction/configuration-basics"
+            ]
+          },
+          {
+            "group": "First Run \u0026 Validation",
+            "pages": [
+              "getting-started/first-steps/first-usage",
+              "getting-started/first-steps/troubleshooting",
+              "getting-started/first-steps/validation-checklist"
+            ]
+          }
+        ],
+        "tab": "Getting Started"
+      },
+      {
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "guides/getting-started/installation",
+              "guides/getting-started/basic-navigation"
+            ]
+          },
+          {
+            "group": "Usage Patterns \u0026 Best Practices",
+            "pages": [
+              "guides/usage-patterns/authoring-mdx",
+              "guides/usage-patterns/authentication-docs",
+              "guides/usage-patterns/troubleshooting"
+            ]
+          }
+        ],
+        "tab": "Guides"
+      },
+      {
+        "groups": [
+          {
+            "group": "Core API Endpoints",
+            "pages": [
+              "api-reference/core-api/endpoint-overview",
+              "api-reference/core-api/search-endpoint"
+            ]
+          },
+          {
+            "group": "Authentication \u0026 Error Handling",
+            "pages": [
+              "api-reference/auth-and-errors/authentication",
+              "api-reference/auth-and-errors/error-handling"
+            ]
+          },
+          {
+            "group": "Usage \u0026 SDK Examples",
+            "pages": [
+              "api-reference/usage-examples/request-examples",
+              "api-reference/usage-examples/sdk-and-tools"
+            ]
+          }
+        ],
+        "tab": "API Reference"
+      },
+      {
+        "groups": [
+          {
+            "group": "General \u0026 Getting Started Questions",
+            "pages": [
+              "faq/core-questions/what-is-runrl",
+              "faq/core-questions/installation-issues",
+              "faq/core-questions/navigation-basics"
+            ]
+          },
+          {
+            "group": "Troubleshooting \u0026 Performance",
+            "pages": [
+              "faq/troubleshooting/rendering-problems",
+              "faq/troubleshooting/authentication-errors",
+              "faq/troubleshooting/performance-tips"
+            ]
+          }
+        ],
+        "tab": "FAQ"
+      }
+    ]
+  },
+  "styling": {
+    "codeblocks": "dark",
+    "eyebrows": "breadcrumbs"
+  }
+}
